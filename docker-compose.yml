@@ -1,0 +1,33 @@
+version: "3"
+services:
+  app:
+    image: node
+    container_name: "app"
+    command: bash -c "yarn && yarn start"
+    working_dir: /webapp
+    volumes:
+      - ./webapp:/webapp
+    ports:
+      - "3000:3000"
+  
+  api: 
+    image: node
+    container_name: "api"
+    command: bash -c "npm install  && npm run migration:run && npm start"
+    working_dir: /api
+    volumes:
+      - ./api:/api
+    ports:
+      - "4000:4000"
+
+ 
+  db:
+    image: "postgres"
+    container_name: "db"
+    environment:
+      - POSTGRES_USER=alex
+      - POSTGRES_PASSWORD=dokoliday
+      - POSTGRES_DB=slackMeHarder
+    ports:
+      - "5432:5432"
+    
