@@ -1,0 +1,10 @@
+{
+    "dev": {
+      "driver": "postgres",
+      "host": "db",
+      "port": "5432",
+      "user": "alex",
+      "password": "dokoliday",
+      "database": "slackMeHarder"
+    }
+  }
