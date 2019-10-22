@@ -9,9 +9,11 @@ services:
       - ./webapp:/webapp
     ports:
       - "3000:3000"
+
   
   api: 
     image: node
+
     container_name: "api"
     command: bash -c "npm install  && npm run migration:run && npm start"
     working_dir: /api
@@ -19,6 +21,10 @@ services:
       - ./api:/api
     ports:
       - "4000:4000"
+    environment:
+      - DB_HOST=db
+    depends_on: 
+      - db
 
  
   db:
