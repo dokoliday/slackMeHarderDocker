@@ -2,22 +2,62 @@ const router = require('express').Router();
 const { createChannel } = require('../dataHandler/queries/createChannel');
 const { getAllChannels } = require('../dataHandler/queries/getAllChannels');
 const { getAllMessagesByChannel } = require('../dataHandler/queries/getAllMessagesByChannel')
+const { getChannelById } = require('../dataHandler/queries/getChannelById')
+const { deleteChannel } = require('../dataHandler/queries/deleteChannel')
 
 router.post('/', async (req, res) => {
     channelName = req.body.name;
-    await createChannel(channelName);
-    res.send(`new channel have been created`);
+    try {
+        await createChannel(channelName);
+        res.send(`new channel have been created`);
+    }
+    catch (error) {
+         res.send(`error: ${error}`)
+    }
 });
 
 router.get('/', async (req, res) => {
-    const channels = await getAllChannels();
-    res.send(channels.rows);
+    try {
+        const channels = await getAllChannels();
+        res.send(channels.rows);
+    }
+    catch (error) {
+         res.send(`error: ${error}`)
+    }
+});
+
+router.get('/:id/messages', async (req, res) => {
+    channelId = req.params.id;
+    try {
+        const messages = await getAllMessagesByChannel(channelId);
+        res.send(messages.rows);
+    }
+    catch (error) {
+         res.send(`error: ${error}`)
+    }
 });
 
 router.get('/:id', async (req, res) => {
-    channelId = req.params.id
-    const messages = await getAllMessagesByChannel(channelId);
-    res.send(messages.rows);
+    id = req.params.id;
+    try {
+        const messages = await getChannelById(id);
+        res.send(messages.rows);
+    }
+    catch (error) {
+         res.send(`error: ${error}`)
+    }
+
+});
+
+router.delete('/:id', async (req, res) => {
+    id = req.params.id;
+    try {
+        await deleteChannel(id)
+        res.send('channel deleted')
+    }
+    catch (error) {
+        res.send(`error: ${error}`)
+    }
 });
 
 module.exports = router;
