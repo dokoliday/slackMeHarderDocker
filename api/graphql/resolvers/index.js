@@ -1,8 +1,11 @@
 const { getAllChannels } = require('../../dataHandler/queries/getAllChannels');
 const { getAllMessagesByChannel } = require('../../dataHandler/queries/getAllMessagesByChannel')
 const { getChannelById } = require('../../dataHandler/queries/getChannelById');
-const { getAllMessages } = require('../../dataHandler/queries/getAllMessages')
-const { deleteChannel } = require('../../dataHandler/queries/deleteChannel')
+const { getAllMessages } = require('../../dataHandler/queries/getAllMessages');
+const { deleteChannel } = require('../../dataHandler/queries/deleteChannel');
+const { createChannel } = require('../../dataHandler/queries/createChannel');
+const { updateChannel } = require('../../dataHandler/queries/updateChannel')
+const { updateMessage } = require('../../dataHandler/queries/updateMessage')
 
 module.exports = resolvers = {
     Query: {
@@ -26,8 +29,18 @@ module.exports = resolvers = {
     },
 
     Mutation: {
-        deleteChannel: async (_,{id}) => {
-          await deleteChannel(id)
+        deleteChannel: async (_, { id }) => {
+            await deleteChannel(id)
+
         },
-    },
-};
+        createChannel: async (_, { name }) => {
+            return await createChannel(name)
+        },
+        updateChannel: async (_, { name, id }) => {
+            return await updateChannel(name, id)
+        },
+        updateMessage: async (_, { content, id }) => {
+            return await updateMessage(content, id)
+        },
+    }
+}
