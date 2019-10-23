@@ -6,6 +6,7 @@ const createChannel = async name => {
             .query(`INSERT INTO channel (name) VALUES ($1)`, [name]);
     } catch (error) {
         console.log('error: ', error);
+        throw (error);
     }
 };
 
