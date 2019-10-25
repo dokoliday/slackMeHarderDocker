@@ -18,11 +18,25 @@ services:
     volumes:
       - ./api:/api
     ports:
-      - "4000:4000"
+      - "4201:4201"
     environment:
       - DB_HOST=db
     depends_on: 
       - db
+  
+  graph: 
+    image: node
+    container_name: "graph"
+    command: bash -c "npm i && npm start"
+    working_dir: /graphql
+    volumes:
+      - ./graphql:/graphql
+    ports:
+      - "4000:4000"
+    environment:
+      - API_HOST=api
+    depends_on: 
+      - api
  
   db:
     image: "postgres"
