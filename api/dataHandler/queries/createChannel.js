@@ -2,7 +2,7 @@ const { connect } = require("../connect")
 
 const createChannel = async name => {
     try {
-        await connect
+        return await connect
             .query(`INSERT INTO channel (name) VALUES ($1)`, [name]);
     } catch (error) {
         console.log('error: ', error);

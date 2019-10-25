@@ -9,9 +9,11 @@ type Query {
     messages: [Message],
   },
 
-type Mutation{
+type Mutation {
     deleteChannel(id:ID!): Channel,
+    deleteMessage(id:ID!): Message,
     createChannel(name:String):Channel,
+    sendMessage(content:String,channel_id:Int):Message,
     updateChannel(name:String,id:ID!):Channel,
     updateMessage(content:String,id:ID!):Message,
 },
