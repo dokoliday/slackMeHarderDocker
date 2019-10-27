@@ -1,9 +1,13 @@
 const Validator = require('jsonschema').Validator;
 const validator = new Validator();
 
-// Address, to be embedded on Person
 const idMessageSchema = {
     "id": "/idMessage",
+    "type": "string",
+    "pattern":"^[0-9]*$"
+};
+const idChannelSchema = {
+    "id": "/idChannel",
     "type": "string",
     "pattern":"^[0-9]*$"
 };
@@ -17,5 +21,6 @@ module.exports=
  {
     validator,
     idMessageSchema,
+    idChannelSchema,
     channelNameSchema
 };

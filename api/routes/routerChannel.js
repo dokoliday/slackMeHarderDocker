@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
         res.send(`new channel have been created`);
     }
     catch (error) {
-        res.send(`error: ${error}`)
+        res.send(error)
     }
 });
 
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
         res.send(channels.rows);
     }
     catch (error) {
-        res.send(`error: ${error}`)
+        res.send(error)
     }
 });
 
@@ -34,7 +34,7 @@ router.get('/:id/messages', async (req, res) => {
         res.send(messages.rows);
     }
     catch (error) {
-        res.send(`error: ${error}`)
+        res.send(error)
     }
 });
 
@@ -57,7 +57,7 @@ router.delete('/:id', async (req, res) => {
         res.send('channel deleted')
     }
     catch (error) {
-        res.send(`error: ${error}`)
+        res.send(error)
     }
 });
 
@@ -69,7 +69,7 @@ router.put('/:id', async (req, res) => {
         res.send('channel update')
     }
     catch (error) {
-        res.send(`error: ${error}`)
+        res.send(error)
     }
 });
 
