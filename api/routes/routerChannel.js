@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const { createChannel } = require('../dataHandler/queries/createChannel');
-const { getAllChannels } = require('../dataHandler/queries/getAllChannels');
-const { getAllMessagesByChannel } = require('../dataHandler/queries/getAllMessagesByChannel');
-const { getChannelById } = require('../dataHandler/queries/getChannelById');
-const { deleteChannel } = require('../dataHandler/queries/deleteChannel');
-const { updateChannel } = require('../dataHandler/queries/updateChannel');
+const { createChannel } = require('../dataHandler/queries/channels/createChannel');
+const { getAllChannels } = require('../dataHandler/queries/channels/getAllChannels');
+const { getAllMessagesByChannel } = require('../dataHandler/queries/channels/getAllMessagesByChannel');
+const { getChannelById } = require('../dataHandler/queries/channels/getChannelById');
+const { deleteChannel } = require('../dataHandler/queries/channels/deleteChannel');
+const { updateChannel } = require('../dataHandler/queries/channels/updateChannel');
 
 router.post('/', async (req, res) => {
     channelName = req.body.name;
@@ -45,7 +45,7 @@ router.get('/:id', async (req, res) => {
         res.send(messages.rows);
     }
     catch (error) {
-        res.send(`error: ${error}`)
+        res.send(error)
     }
 
 });

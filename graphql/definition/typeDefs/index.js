@@ -33,6 +33,6 @@ type Message{
     channel_id: Int,
 },
 type Response{
-status:Int,
+    status:Int,
 }
 `;
