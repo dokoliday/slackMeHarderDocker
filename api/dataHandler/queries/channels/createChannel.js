@@ -1,4 +1,4 @@
-const { connect } = require("../../connect")
+const { connect } = require("../../../helpers/connect")
 const { channelNameSchema, validator } = require("../../../helpers/jsonShemaValidator")
 
 const createChannel = async name => {

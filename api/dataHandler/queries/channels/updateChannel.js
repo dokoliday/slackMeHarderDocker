@@ -1,4 +1,4 @@
-const { connect } = require("../../connect");
+const { connect } = require("../../../helpers/connect");
 
 const updateChannel = async (name, channelId) => {
     try {

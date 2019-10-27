@@ -1,4 +1,4 @@
-const { connect } = require("../../connect");
+const { connect } = require("../../../helpers/connect");
 const { idMessageSchema, validator } = require("../../../helpers/jsonShemaValidator");
 const deleteMessage = async idMessage => {
     const idValid = validator.validate(idMessage, idMessageSchema);
