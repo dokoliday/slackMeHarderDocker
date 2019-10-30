@@ -50,13 +50,11 @@ router.get('/:id', async (req, res) => {
     catch (error) {
         res.send(error)
     }
-
 });
 
 router.delete('/:id', async (req, res) => {
-    id = req.params.id;
+    id = parseInt(req.params.id);
     try {
-        console.log("111111")
         await deleteChannel(id)
         res.send('channel deleted')
     }

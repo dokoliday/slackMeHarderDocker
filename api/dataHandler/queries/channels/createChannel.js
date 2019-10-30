@@ -12,7 +12,7 @@ const createChannel = async (name,connect)=> {
             return response;
          });
    } else {
-      return "name or connect can't be null or undefined"
+      return "name and connect can't be null or undefined"
    }
 }
 module.exports = { createChannel };
