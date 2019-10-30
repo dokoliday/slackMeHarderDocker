@@ -1,14 +1,16 @@
 const { connect } = require("../../../helpers/connect")
 
-const getAllChannels = async () => {
-    try {
-        const data = await connect
-            .query(`SELECT * from channel`);
-        return data;
-    } catch (error) {
-        console.log('error: ', error);
-        throw (error);
-    }
+const getAllChannels = async () => {{
+    return await connect
+        .query(`SELECT * from channel`)
+        .then(res => {
+            if (res.rowCount === 0) {
+                throw {
+                    status: "no channels",
+                };
+            }
+            return res;
+        });}
 };
 
 module.exports = { getAllChannels };

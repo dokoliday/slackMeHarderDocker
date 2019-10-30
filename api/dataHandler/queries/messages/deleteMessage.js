@@ -1,11 +1,12 @@
 const { connect } = require("../../../helpers/connect");
-const { idMessageSchema, validator } = require("../../../helpers/jsonShemaValidator");
-const deleteMessage = async idMessage => {
-    const idValid = validator.validate(idMessage, idMessageSchema);
+const { idMessageSchema, validator } = require("../../../helpers/jsonSchemaValidator");
+const deleteMessage = async messageId => {
+    messageId = parseInt(messageId);
+    const idValid = validator.validate(messageId, idMessageSchema);
     if (idValid.errors.length > 0) {
         throw (idValid.errors);
     } return await connect
-        .query(`DELETE FROM message WHERE id=($1)`, [idMessage])
+        .query(`DELETE FROM message WHERE id=($1)`, [messageId])
         .then(res => {
             if (res.rowCount === 0) {
                 throw {
@@ -14,4 +15,5 @@ const deleteMessage = async idMessage => {
             } return res;
         });
 };
+
 module.exports = { deleteMessage };

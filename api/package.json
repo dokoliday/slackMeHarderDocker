@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll",
     "start": "nodemon server.js",
     "migration:create": "npx db-migrate create",
-    "migration:run": "npx db-migrate up"
+    "migration:run": "npx db-migrate up",
+    "migrationTest:run": "npx db-migrate up --config database.json -e test"
   },
   "keywords": [],
   "author": "",

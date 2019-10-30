@@ -1,19 +1,22 @@
 const router = require('express').Router();
+const { connect } = require("../helpers/connect");
 const { createChannel } = require('../dataHandler/queries/channels/createChannel');
 const { getAllChannels } = require('../dataHandler/queries/channels/getAllChannels');
 const { getAllMessagesByChannel } = require('../dataHandler/queries/channels/getAllMessagesByChannel');
 const { getChannelById } = require('../dataHandler/queries/channels/getChannelById');
 const { deleteChannel } = require('../dataHandler/queries/channels/deleteChannel');
 const { updateChannel } = require('../dataHandler/queries/channels/updateChannel');
+const { validate, idChannelSchema, channelNameSchema } = require("../helpers/jsonSchemaValidator");
 
 router.post('/', async (req, res) => {
-    channelName = req.body.name;
+
+    const channelName = req.body.name;
     try {
-        await createChannel(channelName);
-        res.send(`new channel have been created`);
-    }
-    catch (error) {
-        res.send(error)
+        validate(channelName, channelNameSchema);
+        await createChannel(channelName,connect);
+        res.send("Channel Created");
+    } catch (error) {
+        res.send(error);
     }
 });
 
@@ -53,10 +56,13 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     id = req.params.id;
     try {
+        console.log("111111")
         await deleteChannel(id)
         res.send('channel deleted')
     }
     catch (error) {
+        console.log("2222")
+        console.log(error);
         res.send(error)
     }
 });
@@ -65,7 +71,7 @@ router.put('/:id', async (req, res) => {
     id = req.params.id;
     name = req.body.name;
     try {
-        await updateChannel( name , id)
+        await updateChannel(name, id)
         res.send('channel update')
     }
     catch (error) {

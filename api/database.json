@@ -1,10 +1,18 @@
 {
-    "dev": {
-      "driver": "postgres",
-      "host": "db",
-      "port": "5432",
-      "user": "alex",
-      "password": "dokoliday",
-      "database": "slackMeHarder"
-    }
-  }
+	"dev": {
+		"driver": "postgres",
+		"host": "db",
+		"port": "5432",
+		"user": "alex",
+		"password": "dokoliday",
+		"database": "slackMeHarder"
+	},
+	"test": {
+    "driver": "postgres",
+		"host": "db",
+		"port": "5432",
+		"user": "alex",
+		"password": "dokoliday",
+		"database": "test"
+	}
+}

@@ -1,28 +1,28 @@
 const { connect } = require("../../../helpers/connect")
-const { idChannelSchema, validator } = require("../../../helpers/jsonShemaValidator")
+const { idChannelSchema, validator } = require("../../../helpers/jsonSchemaValidator")
 
-const deleteChannel = async id => {
-    const idValid = validator.validate(id, idChannelSchema);
+const deleteChannel = async channelId => {
+    channelId = parseInt(channelId);
+    const idValid = validator.validate(channelId, idChannelSchema);
     if (idValid.errors.length > 0) {
+        console.log("#################")
         throw (idValid.errors);
-    }
-    await connect
-        .query(`DELETE FROM message WHERE channel_id=($1)`, [id])
+    };
+    return await connect
+        .query(`DELETE FROM message WHERE channel_id=($1)`, [channelId])
+        .then(() => {
+            return connect.query(`DELETE FROM channel WHERE id=($1)`, [channelId]);
+        })
         .then(res => {
             if (res.rowCount === 0) {
+                console.log("||||||||||||||||||||||")
                 throw {
                     status: 500,
                 };
-            } return res;
+            };
+            console.log(res)
+            return res;
         });
-    await connect.query(`DELETE FROM channel WHERE id=($1)`, [id])
-        .then(res => {
-            if (res.rowCount === 0) {
-                throw {
-                    status: 500,
-                };
-            } return res;
-        });
-};
+}
 
 module.exports = { deleteChannel };

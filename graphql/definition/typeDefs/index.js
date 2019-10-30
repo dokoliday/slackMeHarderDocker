@@ -1,21 +1,21 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require('apollo-server');
 
 module.exports = typeDefs = gql`
 
 type Query {
     channels: [Channel],
     channel(id: ID!): Channel,
-    messagesBychannel(id: ID!): [Message],
+    messagesBychannel(id: Int): [Message],
     messages: [Message],
   },
 
 type Mutation {
-    deleteChannel(id:ID!): Channel,
+    deleteChannel(id:ID!): Response,
     deleteMessage(id:ID!): Response,
-    createChannel(name:String):Channel,
-    sendMessage(content:String,channel_id:Int):Message,
-    updateChannel(name:String,id:ID!):Channel,
-    updateMessage(content:String,id:ID!):Message,
+    createChannel(name:String):Response,
+    sendMessage(content:String,channel_id:Int):Response,
+    updateChannel(name:String,id:Int):Response
+    updateMessage(content:String,id:Int):Response,
 },
 
 type Channel {
@@ -34,5 +34,6 @@ type Message{
 },
 type Response{
     status:Int,
+    message:String,
 }
 `;
