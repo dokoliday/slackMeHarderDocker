@@ -15,4 +15,4 @@ const getAllChannels = async (connect) => {
         return "connect can't be null or undefined"
     }
 }
-    module.exports = { getAllChannels };
+module.exports = { getAllChannels };
