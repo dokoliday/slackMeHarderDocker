@@ -1,15 +1,5 @@
-const { connect } = require("../../../helpers/connect")
-const { messageSchema, idChannelSchema, validator } = require("../../../helpers/jsonSchemaValidator")
 
-const sendMessage = async (message, channelId) => {
-    const idValid = validator.validate(channelId, idChannelSchema);
-    const messageValid = validator.validate(message, messageSchema);
-
-    if (idValid.errors.length > 0) {
-        throw (idValid.errors);
-    } else if (messageValid.errors.length > 0) {
-        throw (messageValid.errors);
-    } else {
+const sendMessage = async (message, channelId,connect) => {
         return await
             connect
                 .query(`SELECT * FROM channel WHERE id=($1)`, [channelId])
@@ -32,6 +22,5 @@ const sendMessage = async (message, channelId) => {
                 }
                 );
     };
-}
 
 module.exports = { sendMessage };

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "jest --watchAll --runInBand",
     "start": "nodemon server.js",
     "migration:create": "npx db-migrate create",
     "migration:run": "npx db-migrate up",

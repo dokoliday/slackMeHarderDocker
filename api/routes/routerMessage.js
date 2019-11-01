@@ -4,7 +4,7 @@ const { sendMessage } = require('../dataHandler/queries/messages/sendMessage');
 const { getAllMessages } = require('../dataHandler/queries/messages/getAllMessages');
 const { updateMessage } = require('../dataHandler/queries/messages/updateMessage')
 const { deleteMessage } = require('../dataHandler/queries/messages/deleteMessage')
-
+const { getAllMessagesByChannel } = require('../dataHandler/queries/messages/getAllMessagesByChannel');
 
 router.post('/', async (req, res) => {
    const message = req.body.content;
@@ -25,6 +25,16 @@ router.get('/', async (req, res) => {
    }
    catch (error) {
       res.send(error)
+   }
+});
+router.get('/channel/:id', async (req, res) => {
+   channelId = req.params.id;
+   try {
+       const messages = await getAllMessagesByChannel(channelId);
+       res.send(messages.rows);
+   }
+   catch (error) {
+       res.send(error)
    }
 });
 

@@ -1,12 +1,11 @@
-const { getAllChannels } = require("../dataHandler/queries/channels/getAllChannels");
-const { connect } = require("./connectTest");
-const { createChannel } = require("../dataHandler/queries/channels/createChannel");
-const nbInsertion = 15;
+const { getAllChannels } = require("../../dataHandler/queries/channels/getAllChannels");
+const { connect } = require("../connectTest");
+const nbInsertion = 3;
+const name = "nametest";
 
-beforeAll(
-   async () => {
+beforeAll( async () => {
       for (let i = 0; i < nbInsertion; i++) {
-         await createChannel("nametest", connect)
+         await connect.query(`INSERT INTO channel (name) VALUES ($1)`, [name])
       };
    });
 
@@ -14,8 +13,8 @@ describe("getAllChannels return response or throw exeption", () => {
    expect.assertions(2);
    it("getAllChannels for channels > 0", async (done) => {
       const response = await getAllChannels(connect);
-      expect(response.rows.length > 0).toEqual(true);
-      expect(typeof response.rows[0] === "object").toEqual(true);
+      expect(response.length > 0).toEqual(true);
+      expect(typeof response[0] === "object").toEqual(true);
       done();
    });
 
@@ -40,4 +39,9 @@ describe("getAllChannels return response or throw exeption", () => {
       expect(response).toEqual("connect can't be null or undefined");
       done();
    });
+});
+
+afterAll(async () => {
+   return await connect
+      .query(`DELETE FROM channel`)
 });

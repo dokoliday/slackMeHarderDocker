@@ -9,10 +9,10 @@ const getAllChannels = async (connect) => {
                         message: "No channels"
                     };
                 }
-                return res;
+                return res.rows;
             });
     } else {
         return "connect can't be null or undefined"
-    }
+    };
 }
 module.exports = { getAllChannels };

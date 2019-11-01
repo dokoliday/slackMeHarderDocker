@@ -2,7 +2,6 @@ const router = require('express').Router();
 const { connect } = require("../helpers/connect");
 const { createChannel } = require('../dataHandler/queries/channels/createChannel');
 const { getAllChannels } = require('../dataHandler/queries/channels/getAllChannels');
-const { getAllMessagesByChannel } = require('../dataHandler/queries/channels/getAllMessagesByChannel');
 const { getChannelById } = require('../dataHandler/queries/channels/getChannelById');
 const { deleteChannel } = require('../dataHandler/queries/channels/deleteChannel');
 const { updateChannel } = require('../dataHandler/queries/channels/updateChannel');
@@ -30,17 +29,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id/messages', async (req, res) => {
-    channelId = req.params.id;
-    try {
-        const messages = await getAllMessagesByChannel(channelId);
-        res.send(messages.rows);
-    }
-    catch (error) {
-        res.send(error)
-    }
-});
-
 router.get('/:id', async (req, res) => {
     id = req.params.id;
     try {
@@ -59,8 +47,6 @@ router.delete('/:id', async (req, res) => {
         res.send('channel deleted')
     }
     catch (error) {
-        console.log("2222")
-        console.log(error);
         res.send(error)
     }
 });
