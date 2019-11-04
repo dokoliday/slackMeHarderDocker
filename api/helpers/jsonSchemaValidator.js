@@ -24,10 +24,11 @@ const messageSchema = {
     "maxLength": 30000
 };
 const validate = (item, schema) => {
-    const result = validator.validate(item, schema);
+    const result =  validator.validate(item, schema);
     if (result.errors.length > 0) {
         throw (result.errors[0].message)
-    } return item
+    } 
+    return item
 }
 module.exports =
     {

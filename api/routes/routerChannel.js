@@ -5,24 +5,24 @@ const { getAllChannels } = require('../dataHandler/queries/channels/getAllChanne
 const { getChannelById } = require('../dataHandler/queries/channels/getChannelById');
 const { deleteChannel } = require('../dataHandler/queries/channels/deleteChannel');
 const { updateChannel } = require('../dataHandler/queries/channels/updateChannel');
-const { validate, idChannelSchema, channelNameSchema } = require("../helpers/jsonSchemaValidator");
+const { validate, channelNameSchema, idChannelSchema } = require("../helpers/jsonSchemaValidator");
 
 router.post('/', async (req, res) => {
-
     const channelName = req.body.name;
     try {
-        validate(channelName, channelNameSchema);
-        await createChannel(channelName,connect);
-        res.send("Channel Created");
-    } catch (error) {
-        res.send(error);
+        await validate(channelName, channelNameSchema);
+        const response = await createChannel(channelName, connect);
+        res.send(response);
+    }
+    catch (error) {
+        res.send(error)
     }
 });
 
 router.get('/', async (req, res) => {
     try {
-        const channels = await getAllChannels();
-        res.send(channels.rows);
+        const response = await getAllChannels(connect);
+        res.send(response);
     }
     catch (error) {
         res.send(error)
@@ -30,10 +30,11 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    id = req.params.id;
+    const channelId = parseInt(req.params.id);
     try {
-        const messages = await getChannelById(id);
-        res.send(messages.rows);
+        await validate(channelId, idChannelSchema);
+        const response = await getChannelById(channelId, connect);
+        res.send(response);
     }
     catch (error) {
         res.send(error)
@@ -41,10 +42,11 @@ router.get('/:id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-    id = parseInt(req.params.id);
+    const channelId = parseInt(req.params.id);
     try {
-        await deleteChannel(id)
-        res.send('channel deleted')
+        await validate(channelId, idChannelSchema);
+        const response = await deleteChannel(channelId, connect);
+        res.send(response);
     }
     catch (error) {
         res.send(error)
@@ -52,11 +54,13 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-    id = req.params.id;
-    name = req.body.name;
+    const channelId = parseInt(req.params.id);
+    const channelName = req.body.name;
     try {
-        await updateChannel(name, id)
-        res.send('channel update')
+        await validate(channelId, idChannelSchema);
+        await validate(channelName, channelNameSchema);
+        const response = await updateChannel(channelName, channelId, connect);
+        res.send(response);
     }
     catch (error) {
         res.send(error)

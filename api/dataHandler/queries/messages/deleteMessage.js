@@ -6,7 +6,7 @@ const deleteMessage = async (messageId, connect) => {
             if (res.rowCount === 0) {
                throw {
                   status: 400,
-                  message: "Problem while delete message"
+                  message: "This message does not exist"
                };
             } return res;
          });

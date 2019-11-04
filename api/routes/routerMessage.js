@@ -5,13 +5,16 @@ const { getAllMessages } = require('../dataHandler/queries/messages/getAllMessag
 const { updateMessage } = require('../dataHandler/queries/messages/updateMessage')
 const { deleteMessage } = require('../dataHandler/queries/messages/deleteMessage')
 const { getAllMessagesByChannel } = require('../dataHandler/queries/messages/getAllMessagesByChannel');
+const { validate, idMessageSchema, messageSchema, idChannelSchema } = require("../helpers/jsonSchemaValidator")
 
 router.post('/', async (req, res) => {
    const message = req.body.content;
    const channelId = req.body.channel_id;
    try {
-      await sendMessage(message, channelId);
-      res.send(`new message have been send`);
+      await validate(channelId, idChannelSchema);
+      await validate(message, messageSchema);
+      const response = await sendMessage(message, channelId, connect);
+      res.send(response);
    }
    catch (error) {
       res.send(error)
@@ -20,41 +23,46 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
    try {
-      messages = await getAllMessages();
-      res.send(messages.rows);
+      const response = await getAllMessages(connect);
+      res.send(response);
    }
    catch (error) {
       res.send(error)
    }
 });
+
 router.get('/channel/:id', async (req, res) => {
-   channelId = req.params.id;
+   const channelId = parseInt(req.params.id);
    try {
-       const messages = await getAllMessagesByChannel(channelId);
-       res.send(messages.rows);
+      await validate(channelId, idChannelSchema);
+      const response = await getAllMessagesByChannel(channelId, connect);
+      res.send(response);
    }
    catch (error) {
-       res.send(error)
+      res.send(error)
    }
 });
 
 router.put('/:id', async (req, res) => {
-   const id = req.params.id;
-   const content = req.body.content;
+   const message = req.body.content;
+   const messageId = parseInt(req.params.id);
    try {
-      await updateMessage(content, id)
-      res.send('Message update')
+      await validate(messageId, idMessageSchema);
+      await validate(message, messageSchema);
+      const response = await updateMessage(message, messageId, connect);
+      res.send(response);
    }
    catch (error) {
-      res.send(error)
-   }
+      res.send(error);
+   };
 });
 
 router.delete('/:id', async (req, res) => {
-   const id = req.params.id;
+   const messageId = parseInt(req.params.id);
    try {
-      await deleteMessage(id);
-      res.send("message have been deleted")
+      await validate(messageId, idMessageSchema);
+      const response = await deleteMessage(messageId, connect);
+      res.send(response)
    }
    catch (error) {
       res.status(500).send(error)
