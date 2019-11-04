@@ -1,7 +1,7 @@
 const getAllMessagesByChannel = async (channelId, connect) => {
     if (channelId && connect) {
         return await connect
-            .query(`SELECT * from message WHERE channel_id=($1)`, [channelId])
+            .query(`SELECT * FROM message WHERE channel_id=($1)`, [channelId])
             .then(res => {
                 if (res.rowCount === 0) {
                     throw {

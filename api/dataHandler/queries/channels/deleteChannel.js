@@ -9,7 +9,7 @@ const deleteChannel = async (channelId, connect) => {
          .then(async () => {
             return await connect.query(`DELETE FROM channel WHERE id=($1)`, [channelId])
                .then(response => {
-                  if (response.rowCount=== 0) {
+                  if (response.rowCount === 0) {
                      throw error;
                   };
                   return "channel deleted";

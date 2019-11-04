@@ -3,7 +3,6 @@ const getAllMessages = async (connect) => {
         return await connect
             .query(`SELECT * from message`)
             .then(res => {
-                console.log(res)
                 if (res.rowCount === 0) {
                     throw {
                         status: 400,
