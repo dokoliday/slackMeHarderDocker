@@ -1,23 +1,11 @@
-const { channels, channel } = require("./queries/channelsQueries");
-const { messagesBychannel, messages } = require("./queries/messagesQueries");
-const { deleteChannel, updateChannel, createChannel } = require("./mutations/channelsMutations")
-const { updateMessage, sendMessage, deleteMessage } = require("./mutations/messagesMutations")
+const getRequestHandlers = require("../requestFiles");
+
+console.log(Object.keys(getRequestHandlers(`${__dirname}/mutations`)))
+console.log(Object.keys(getRequestHandlers(`${__dirname}/queries`)))
 
 module.exports = resolvers = {
-   Query: {
-      channels,
-      channel,
-      messagesBychannel,
-      messages,
-   },
-   Mutation: {
-      createChannel,
-      updateChannel,
-      deleteChannel,
-      sendMessage,
-      deleteMessage,
-      updateMessage,
-   }
+   Query: getRequestHandlers(`${__dirname}/queries`),
+   Mutation: getRequestHandlers(`${__dirname}/mutations`)
 }
 
 
