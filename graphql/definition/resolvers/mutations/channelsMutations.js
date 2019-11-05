@@ -62,4 +62,4 @@ const deleteChannel = (_, { id }) => {
       })
 };
 
-module.exports={deleteChannel,updateChannel,createChannel}
+module.exports = { deleteChannel, updateChannel, createChannel }
