@@ -5,7 +5,6 @@ const channels = () => {
    return fetch(`http://${host}:4201/api/channels`)
       .then(res => res.json())
       .then(res => {
-         console.log(res)
          if (res.status === 400) {
             return new Error(res.message)
          } return res
