@@ -1,7 +1,12 @@
 const getRequestHandlers = require("../../helpers/getRequestHandlers");
 
-console.log(Object.keys(getRequestHandlers(`${__dirname}/mutations`)))
-console.log(Object.keys(getRequestHandlers(`${__dirname}/queries`)))
+console.log({
+   resolvers:
+   {
+      mutations: Object.keys(getRequestHandlers(`${__dirname}/mutations`)),
+      queries: Object.keys(getRequestHandlers(`${__dirname}/queries`))
+   }
+});
 
 module.exports = resolvers = {
    Query: getRequestHandlers(`${__dirname}/queries`),
