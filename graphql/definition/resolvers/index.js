@@ -2,139 +2,164 @@ const fetch = require("node-fetch");
 const host = process.env.API_HOST
 
 module.exports = resolvers = {
-    Query: {
-        channels: async () => {
-            const channels = await fetch(`http://${host}:4201/api/channels`)
-                .then(res => res.json());
-            return channels;
-        },
-        channel: async (_, { id }) => {
-            const url = `http://${host}:4201/api/channels/${id}`
-            const channel = await fetch(url)
-                .then(res => res.json());
-            return channel[0];
-        },
-        messagesBychannel: async (_, { id }) => {
-            const messagesBychannel = await fetch(`http://${host}:4201/api/channels/${id}/messages`)
-                .then(res => res.json());
-            return messagesBychannel;
-        },
-        messages: async () => {
-            const messages = await fetch(`http://${host}:4201/api/messages`)
-                .then(res => res.json());
-            return messages;
-        }
-    },
-    Mutation: {
-        createChannel: async (_, { name }) => {
-            return await fetch(`http://${host}:4201/api/channels`, {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ "name": name })
-            })
-                .then(res => {
-                    console.log(res.headers);
-                    
-                    return {
-                        "status": res.status,
-                        "message": "Channel created"
-                    }
-                });
-        },
-        updateChannel: async (_, { name, id }) => {
-            return await fetch(`http://${host}:4201/api/channels/${id}`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "PUT",
-                body: JSON.stringify({ "name": name })
-            })
-                .then(res => {
-                    return {
-                        "status": res.status,
-                        "message": "Channel updated"
-                    }
-                });
-        },
-        deleteChannel: async (_, { id }) => {
-            return await fetch(`http://${host}:4201/api/channels/${id}`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "DELETE",
-            })
-                .then(res => {
-                    return {
-                        "status": res.status,
-                        "message": "Channel deleted"
-                    }
-                });
-        },
-        sendMessage: async (_, {channel_id, content }) => {
-            console.log(content,channel_id)
-            return await fetch(`http://${host}:4201/api/messages`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "content": content,
-                    "channel_id": channel_id
-                }),
-                method: "POST",
-            })
-                .then(res => {
-                    console.log(
-                        "OK", 
-                        `http://${host}:4201/api/messages`,
-                        {
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                "content": content,
-                                "channel_id": channel_id
-                            } )
-                        },
-                         JSON.stringify(res));
-                    return {
-                        "status": res.status,
-                        "message": "Message send"
-                    }
-                })
-                .catch(err => console.log("OOOPPPSSS", err));
-        },
-        deleteMessage: async (_, { id }) => {
-            deleteMessage = await fetch(`http://${host}:4201/api/messages/${id}`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "DELETE",
-            }).then(res => {
-                console.log('pppppppppppppppppppLLLLL', JSON.stringify(res))
-                console.log(res.status)
-                return { "status": res.status }
+   Query: {
+      channels: () => {
+         return fetch(`http://${host}:4201/api/channels`)
+            .then(res => res.json())
+            .then(res => {
+               if (res.status === 400) {
+                  return new Error(res.message)
+               } return res
+            }
+            );
+      },
+      channel: (_, { id }) => {
+         return fetch(`http://${host}:4201/api/channels/${id}`)
+            .then(res => res.json())
+            .then(channel => {
+               if (channel.status === 400) {
+                  return new Error(channel.message)
+               } return channel[0];
             });
-            return deleteMessage;
-        },
-        updateMessage: async (_, { content, id }) => {
-            await fetch(`http://${host}:4201/api/messages/${id}`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "PUT",
-                body: JSON.stringify({ content })
-            });
-        },
-    },
+
+      },
+      messagesBychannel: (_, { id }) => {
+         return fetch(`http://${host}:4201/api/messages/channel/${id}`)
+            .then(res => res.json())
+            .then(messagesBychannel => {
+               if (messagesBychannel.status === 400) {
+                  return new Error(messagesBychannel.message)
+               } return messagesBychannel;
+            })
+      },
+      messages: () => {
+         return fetch(`http://${host}:4201/api/messages`)
+            .then(res => res.json())
+            .then(messages => {
+               if (messages.status === 400) {
+                  return new Error(messages.message)
+               } return messages;
+            })
+      }
+   },
+   Mutation: {
+      createChannel: (_, { name }) => {
+         return fetch(`http://${host}:4201/api/channels`, {
+            method: "POST",
+            headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "name": name })
+         })
+            .then(res => res.json())
+            .then(createChannel => {
+               console.log(createChannel)
+               if (createChannel.status === 400) {
+                  return new Error(createChannel.message)
+               } return {
+                  "status": 201,
+                  "message": "Channel created"
+               }
+            })
+      },
+      updateChannel: (_, { name, id }) => {
+         return fetch(`http://${host}:4201/api/channels/${id}`, {
+            headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+            },
+            method: "PUT",
+            body: JSON.stringify({ "name": name })
+         })
+            .then(res => res.json())
+            .then(updateChannel => {
+               if (updateChannel.status === 400) {
+                  return new Error(updateChannel.message)
+               } return {
+                  "status": 201,
+                  "message": "Channel updated"
+               }
+            })
+      },
+      deleteChannel: (_, { id }) => {
+         return fetch(`http://${host}:4201/api/channels/${id}`, {
+            headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+            },
+            method: "DELETE",
+         })
+            .then(res => res.json())
+            .then(deleteChannel => {
+               if (deleteChannel.status === 400) {
+                  return new Error(deleteChannel.message)
+               } return {
+                  "status": 200,
+                  "message": "Channel deleted"
+               }
+            })
+      },
+      sendMessage: (_, { channel_id, content }) => {
+         return fetch(`http://${host}:4201/api/messages`, {
+            headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+               "content": content,
+               "channel_id": channel_id
+            }),
+            method: "POST",
+         })
+            .then(res => res.json())
+            .then(sendMessage => {
+               if (sendMessage.status === 400) {
+                  return new Error(sendMessage.message)
+               } return {
+                  "status": 200,
+                  "message": "Message Send"
+               }
+            })
+      },
+      deleteMessage: (_, { id }) => {
+         return fetch(`http://${host}:4201/api/messages/${id}`, {
+            headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+            },
+            method: "DELETE",
+         })
+            .then(res => res.json())
+            .then(deleteMessage => {
+               if (deleteMessage.status === 400) {
+                  return new Error(deleteMessage.message)
+               } return {
+                  "status": 200,
+                  "message": "Message deleted"
+               }
+            })
+      },
+      updateMessage: (_, { content, id }) => {
+         return fetch(`http://${host}:4201/api/messages/${id}`, {
+            headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+            },
+            method: "PUT",
+            body: JSON.stringify({ content })
+         })
+         .then(res => res.json())
+         .then(deleteMessage => {
+            if (deleteMessage.status === 400) {
+               return new Error(deleteMessage.message)
+            } return {
+               "status": 200,
+               "message": "Message updated"
+            }
+         })
+      },
+   },
 }
 
 
