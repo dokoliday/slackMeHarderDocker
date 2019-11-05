@@ -25,13 +25,14 @@ type Channel {
     updated_at: String,
   },
 
-type Message{
-    id: ID!,
+type Message {
+    id: ID!, 
     content: String,
     created_at: String,
     updated_at: String,
     channel_id: Int,
 },
+
 type Response{
     status:Int,
     message:String,

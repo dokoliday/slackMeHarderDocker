@@ -28,7 +28,7 @@ const validate = (item, schema) => {
     if (result.errors.length > 0) {
         throw (result.errors[0].message)
     } 
-    return item
+    return item;
 }
 module.exports =
     {
