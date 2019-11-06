@@ -2,9 +2,17 @@
  jobs:
    build:
      docker:
-       - image: ubuntu:19.04
+       - image: node
      steps:
        - checkout
-       - run:  ls
-       - run: echo " second command" 
+       - run: 
+          name:  installation des dependanses pour api
+          command: cd api && npm install
+       - run: ls
+       - run: npm run test:ci
+         
+
+      
+
+
             
