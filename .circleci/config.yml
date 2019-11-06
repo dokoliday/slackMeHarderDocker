@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: 
           name:  installation des dependanses pour api
-          command: cd api && npm install && && npm run test:ci
+          command: cd api && npm install && npm run test:ci
     depends_on: 
       - db
   
