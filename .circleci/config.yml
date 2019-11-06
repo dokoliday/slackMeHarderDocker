@@ -9,7 +9,7 @@ jobs:
         environment:
           POSTGRES_USER: alex
           POSTGRES_PASSWORD: dokoliday
-          POSTGRES_DB: slackMeHarder
+          POSTGRES_DB: test
     steps:
       - checkout
       - run: env
