@@ -2,7 +2,7 @@
 {
 	"dev": {
 		"driver": "postgres",
-		"host": "db",
+		"host": {"ENV":"DB_HOST"},
 		"port": "5432",
 		"user": "alex",
 		"password": "dokoliday",
@@ -10,7 +10,7 @@
 	},
 	"test": {
     "driver": "postgres",
-		"host": "db",
+		"host": {"ENV":"DB_HOST"},
 		"port": "5432",
 		"user": "alex",
 		"password": "dokoliday",
