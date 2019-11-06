@@ -6,7 +6,7 @@
 		"port": "5432",
 		"user": "alex",
 		"password": "dokoliday",
-		"database": "slackMeHarder"
+		"database": {"ENV":"DB_NAME"}
 	},
 	"test": {
     "driver": "postgres",
