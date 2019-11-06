@@ -1,16 +1,25 @@
- version: 2
- jobs:
-   build:
-     docker:
-       - image: node
-     steps:
-       - checkout
-       - run: 
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node
+    steps:
+      - checkout
+      - run: 
           name:  installation des dependanses pour api
-          command: cd api && npm install
-       - run: ls ./api
-       - run: cd api && npm run test:ci
-         
+          command: cd api && npm install && && npm run test:ci
+    depends_on: 
+      - db
+  
+    db:
+      - image: postgres
+        container_name: "db"
+        environment:
+          - POSTGRES_USER=test
+          - POSTGRES_PASSWORD=test
+          - POSTGRES_DB=slackMeHarder
+        ports:
+          - "5432:5432"
 
       
 
