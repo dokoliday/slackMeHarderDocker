@@ -8,8 +8,8 @@
        - run: 
           name:  installation des dependanses pour api
           command: cd api && npm install
-       - run: ls
-       - run: npm run test:ci
+       - run: ls ./api
+       - run: cd api && npm run test:ci
          
 
       
