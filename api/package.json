@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest --watchAll --runInBand",
     "test:ci": "jest --runInBand",
+    "createTestDb": "node ./scripts/createTestDb.js",
     "start": "nodemon server.js",
     "migration:create": "npx db-migrate create",
     "migration:run": "npx db-migrate up",

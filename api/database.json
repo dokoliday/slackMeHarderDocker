@@ -1,19 +1,18 @@
-
 {
 	"dev": {
 		"driver": "postgres",
-		"host": {"ENV":"DB_HOST"},
+		"host": { "ENV": "DB_HOST" },
 		"port": "5432",
 		"user": "alex",
 		"password": "dokoliday",
-		"database": {"ENV":"DB_NAME"}
+		"database": { "ENV": "DB_NAME" }
 	},
 	"test": {
-    "driver": "postgres",
-		"host": {"ENV":"DB_HOST"},
+		"driver": "postgres",
+		"host": { "ENV": "DB_HOST" },
 		"port": "5432",
 		"user": "alex",
 		"password": "dokoliday",
-		"database": "test"
+		"database": { "ENV": "DB_TEST_NAME" }
 	}
 }
