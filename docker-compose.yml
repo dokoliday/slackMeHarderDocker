@@ -13,7 +13,7 @@ services:
   api: 
     image: node
     container_name: "api"
-    command: bash -c "npm install  && npm run migration:run && npm start"
+    command: bash -c "npm install  && npm run createTestDb && npm run migration:run && npm start"
     working_dir: /api
     volumes:
       - ./api:/api
@@ -21,6 +21,8 @@ services:
       - "4201:4201"
     environment:
       - DB_HOST=db
+      - DB_NAME=slackMeHarder
+      - DB_TEST_NAME=test
     depends_on: 
       - db
   
