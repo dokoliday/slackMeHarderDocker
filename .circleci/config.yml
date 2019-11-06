@@ -3,25 +3,23 @@ jobs:
   build:
     docker:
       - image: node
+      - image: circleci/postgres:9.6.2-alpine
+        environment:
+          POSTGRES_USER: alex
+          POSTGRES_PASSWORD: dokoliday
+          POSTGRES_DB: slackMeHarder
     steps:
       - checkout
       - run: 
           name:  installation des dependances pour api
-          command: cd api && npm install && npm run test:ci
-    depends_on: 
-      - db
-  
-    # db:
-    #   - image: postgres
-    #     container_name: "db"
-    #     environment:
-    #       - POSTGRES_USER=test
-    #       - POSTGRES_PASSWORD=test
-    #       - POSTGRES_DB=slackMeHarder
-    #     ports:
-    #       - "5499:5499"
+          command: cd api && npm install 
+      - run: 
+          name: migration de la db
+          command: cd api && npm run migration:run 
+      - run: 
+          name: migration de la db
+          command: cd api && npm run test:ci
 
-      
 
 
             
