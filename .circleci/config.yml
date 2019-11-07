@@ -5,12 +5,13 @@ jobs:
          - image: node
            environment:
               DB_HOST: 127.0.0.1
+              DB_TEST_NAME: test
          - image: circleci/postgres:9.6.2-alpine
            environment:
               POSTGRES_USER: alex
               POSTGRES_PASSWORD: dokoliday
               POSTGRES_DB: slackMeHarder
-              DB_TEST_NAME: test
+              
       steps:
          - checkout
          - run: env

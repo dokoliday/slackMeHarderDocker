@@ -1,5 +1,4 @@
 const { connect } = require("../helpers/connect")
-const testConnect = require("../test/connectTest")
 const createTestDb = async (name) => {
    try {
       await connect
