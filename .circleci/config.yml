@@ -1,34 +1,30 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: node
-        environment:
-          DB_HOST: 127.0.0.1
-      - image: circleci/postgres:9.6.2-alpine
-        environment:
-          POSTGRES_USER: alex
-          POSTGRES_PASSWORD: dokoliday
-          POSTGRES_DB: slackMeHarder
-    steps:
-      - checkout
-      - run: env
-      - run: 
-          name:  installation des dependances pour api
-          command: cd api && npm install 
-      - run: 
-          name:  installation des dependances pour api
-          command: cd api && npm run createTestDb
-      - run: 
-          name: migration de la db
-          command: cd api && npm run migration:run 
-      - run: 
-          name: migration de la db test
-          command: cd api && npm run migrationTest:run
-      - run: 
-          name: migration de la db
-          command: cd api && npm run test:ci
-
-
-
-            
+   build:
+      docker:
+         - image: node
+           environment:
+              DB_HOST: 127.0.0.1
+         - image: circleci/postgres:9.6.2-alpine
+           environment:
+              POSTGRES_USER: alex
+              POSTGRES_PASSWORD: dokoliday
+              POSTGRES_DB: slackMeHarder
+      steps:
+         - checkout
+         - run: env
+         - run:
+              name: installation des dependances pour api
+              command: cd api && npm install
+         - run:
+              name: creation de la base test
+              command: cd api && npm run createTestDb
+         - run:
+              name: migration de la db
+              command: cd api && npm run migration:run
+         - run:
+              name: migration de la db test
+              command: cd api && npm run migrationTest:run
+         - run:
+              name: lancement des test
+              command: cd api && npm run test:ci
