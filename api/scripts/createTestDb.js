@@ -9,7 +9,6 @@ const createTestDb = async (name) => {
                console.log(`db name:${name} created`);
                return connect
                   .query(`CREATE DATABASE ${name}`)
-                  .then(res=>console.log(res))
             }
             console.log("##############")
             console.log("db allready exist")
