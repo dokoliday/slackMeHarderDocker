@@ -7,7 +7,6 @@ const createTestDb = async (name) => {
          .then(res => {
             if (res.rows
                .find(element => element.datname === name) !== {}) {
-
                console.log("db test created");
                return connect
                   .query(`CREATE DATABASE ${name}`)
