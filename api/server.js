@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 
 const bodyParser = require('body-parser');
+const cors = require('cors')
+
+
 
 const routerChannel = require('./routes/routerChannel');
 const routerMessage = require('./routes/routerMessage');
@@ -12,6 +15,8 @@ app.use(
         extended: true,
     })
 );
+app.use(cors());
+
 app.use('/api/channels', routerChannel);
 app.use('/api/messages', routerMessage);
 
