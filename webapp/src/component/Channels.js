@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import GetChannel from "../customHooks/GetChannels"
-import CreateChannel from '../customHooks/useCreateChannel';
+import GetChannel from "./GetChannels"
+import ChannelCreationForm from './ChannelCreationForm';
 import useGetChannels from '../customHooks/useGetChannel'
 
 
 const Channels = () => {
    const { data, error, loading, refetch } = useGetChannels();
    if (loading || data === undefined) {
-      return <CreateChannel function={refetch} />
+      return <ChannelCreationForm onSubmit={refetch} />
    }
    if (error) {
       console.log(error)
@@ -15,7 +15,7 @@ const Channels = () => {
    return (
       <div>
          <GetChannel channels={data.channels} />
-         <CreateChannel function={refetch} />
+         <ChannelCreationForm onSubmit={refetch} />
       </div>)
 }
 export default Channels;

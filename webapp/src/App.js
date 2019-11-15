@@ -1,5 +1,5 @@
 import React from 'react';
-import apolloClient from './helpers/apolloSetup';
+import apolloClient from './config/apolloSetup';
 import { ApolloProvider } from '@apollo/react-hooks';
 import Home from './component/Channels'
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
-import useGetChannel from '../customHooks/useGetChannel';
 
 const ADD_CHANNEL = gql`
   mutation CreateChannel($type: String!) {
@@ -12,11 +11,9 @@ const ADD_CHANNEL = gql`
   }
 `;
 
-const CreateChannel = (props) => {
+const ChannelCreationForm = (props) => {
   let input;
   const [addChannel, { data }] = useMutation(ADD_CHANNEL);
-
-  
 
   return (
     <div>
@@ -26,7 +23,7 @@ const CreateChannel = (props) => {
           const newValue=input.value
           input.value="";
           await addChannel({ variables: { type: newValue} })
-          props.function()
+          props.onSubmit()
         }}
       >
         <input
@@ -37,4 +34,4 @@ const CreateChannel = (props) => {
     </div>
   );
 }
-export default CreateChannel
+export default ChannelCreationForm
