@@ -15,7 +15,7 @@ const Channels = () => {
    return (
       <div>
          <GetChannel channels={data.channels} />
-         <ChannelCreationForm onSubmit={refetch} />
+         <ChannelCreationForm />
       </div>)
 }
 export default Channels;
