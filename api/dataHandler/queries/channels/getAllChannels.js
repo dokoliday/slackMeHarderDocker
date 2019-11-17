@@ -4,10 +4,7 @@ const getAllChannels = async (connect) => {
             .query(`SELECT * FROM channel`)
             .then(res => {
                 if (res.rowCount === 0) {
-                    throw {
-                        status: 400,
-                        message: "No channels"
-                    };
+                   return [];
                 }
                 return res.rows;
             });
