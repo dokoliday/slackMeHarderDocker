@@ -11,14 +11,14 @@ beforeAll(async () => {
       );
 });
 
-describe("deleteChannel return response or throw exeption", () => {
-   expect.assertions(1);
-   it("deleteChannel  with good id as params", async (done) => {
-      const response = await deleteChannel(channelId, connect);
-      expect(response).toEqual("channel deleted");
-      done();
-   });
-});
+// describe("deleteChannel return response or throw exeption", () => {
+//    expect.assertions(1);
+//    it("deleteChannel  with good id as params", async (done) => {
+//       const response = await deleteChannel(channelId, connect);
+//       expect(response).toEqual(");
+//       done();
+//    });
+// });
 
 it("deleteChannel with null as params", async (done) => {
    expect.assertions(1);

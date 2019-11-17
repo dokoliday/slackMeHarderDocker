@@ -18,15 +18,15 @@ describe("getAllChannels return response or throw exeption", () => {
       done();
    });
 
-   it("getAllChannels for channels === 0", async (done) => {
-      expect.assertions(1);
-      await connect.query(`DELETE FROM channel`);
-      return getAllChannels(connect).catch(res => {
-         expect(res)
-            .toEqual({ "message": "No channels", "status": 400 })
-         done();
-      })
-   });
+   // it("getAllChannels for channels === 0", async (done) => {
+   //    expect.assertions(1);
+   //    await connect.query(`DELETE FROM channel`);
+   //    return getAllChannels(connect).catch(res => {
+   //       expect(res)
+   //          .toEqual({ "message": "No channels", "status": 400 })
+   //       done();
+   //    })
+   // });
    it("getAllChannels with undifined as params", async (done) => {
       expect.assertions(1);
       const response = await getAllChannels(undefined);
