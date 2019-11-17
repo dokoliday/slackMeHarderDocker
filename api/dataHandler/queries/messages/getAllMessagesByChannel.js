@@ -13,10 +13,7 @@ const getAllMessagesByChannel = async (channelId, connect) => {
                .query(`SELECT * FROM message WHERE channel_id=($1)`, [channelId])
                .then(res => {
                   if (res.rowCount === 0) {
-                     throw {
-                        status: 400,
-                        message: "No messages on this channel"
-                     };
+                     return [];
                   };
                   return res.rows;
                });
