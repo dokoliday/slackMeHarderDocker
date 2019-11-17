@@ -9,6 +9,8 @@ deux fichier git ????????????
 
 creer la db test pour run les tests
 
-changer les reaquete all mess et chan rturn []
+changer les reaquete all mess et chan return []
 
 id non trouver code 404
+
+patcher les test back res.row == 0 throw error mauvaise idees
