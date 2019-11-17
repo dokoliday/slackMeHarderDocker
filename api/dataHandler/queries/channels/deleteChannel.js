@@ -12,7 +12,7 @@ const deleteChannel = async (channelId, connect) => {
                   if (response.rowCount === 0) {
                      throw error;
                   };
-                  return "channel deleted";
+                  return response;
                });
          });
    }
