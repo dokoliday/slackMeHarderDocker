@@ -6,13 +6,18 @@ import useGetMessageById from '../../customHooks/useGetMessageById'
 import styled, { __esModule } from 'styled-components';
 
 const Input = styled.input`
-  padding: 0.5em;
-  margin: 0.5em;
-  background: papayawhip;
-  border: none;
-  border-radius: 3px;
-  width:60vw
+  padding: 1em;
+  margin: 2em;
+  background: white;
+  border: 0.1em solid;
+  border-radius: 14px ;
+  width:70vw;
+  outline:none;
 `;
+const SentenceBlock=styled.div`
+background: white;
+padding:1vh
+`
 
 const ADD_MESSAGE = gql`
   mutation AddMessage($content: String, $channel_id:Int) {
@@ -46,9 +51,11 @@ const MessageCreationForm = (props) => {
           }
         }}
       >
-        <Input
+        <SentenceBlock>
+        <Input type="text" placeholder="Envoyer Un Message"
           ref={name => { input = name }}
         />
+        </SentenceBlock>
       </form>
     </div>
   );

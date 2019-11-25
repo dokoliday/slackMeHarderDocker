@@ -9,26 +9,30 @@ const CustomLi = styled.li`
   color: black;
 `;
 
+
 const Wrapper = styled.div`
   display :flex
-  background: papayawhip;
+  background: #23294C;
   width: 20vw;
+
 `;
 const GetChannels = (props) => {
   return (
-    <Wrapper>
-      <ol>
-        {props.channels.map((channel, index) =>
-          <div key={index}>
-         <button  onClick={()=>props.getChannelSelected(channel.id)} >     
-         <CustomLi key={index}># {channel.name}</CustomLi>
-         </button>
-            <ChannelUpdatedForm  id={channel.id}/>
-            <ChannelDeletedButton id={channel.id}/>
-          </div>
-        )}
-      </ol>
-    </Wrapper>
+    
+      <Wrapper>
+        <ol>
+          {props.channels.map((channel, index) =>
+            <div key={index}>
+              <button onClick={() => props.getChannelSelected(channel.id)} >
+                <CustomLi key={index}># {channel.name}</CustomLi>
+              </button>
+              <ChannelUpdatedForm id={channel.id} />
+              <ChannelDeletedButton id={channel.id} />
+            </div>
+          )}
+        </ol>
+      </Wrapper>
+   
   )
 };
 
