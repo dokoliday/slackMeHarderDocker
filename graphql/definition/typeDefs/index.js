@@ -7,6 +7,7 @@ type Query {
     channel(id: ID!): Channel,
     messagesBychannel(id: Int): [Message],
     messages: [Message],
+    users:[User],
   },
 
 type Mutation {
@@ -32,6 +33,12 @@ type Message {
     updated_at: String,
     channel_id: Int,
 },
+
+type  User  {
+  _id:ID!,
+  userName: String,
+  email: String,
+}
 
 type Response{
     status:Int,

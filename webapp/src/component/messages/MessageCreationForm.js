@@ -14,9 +14,9 @@ const Input = styled.input`
   width:70vw;
   outline:none;
 `;
-const SentenceBlock=styled.div`
+const SentenceBlock = styled.div`
 background: white;
-padding:1vh
+padding:5vh
 `
 
 const ADD_MESSAGE = gql`
@@ -29,7 +29,6 @@ const ADD_MESSAGE = gql`
 `;
 
 const MessageCreationForm = (props) => {
-  console.log(props.channelId)
   const { refetch } = useGetMessageById(parseInt(props.channelId));
 
   let input;
@@ -51,11 +50,9 @@ const MessageCreationForm = (props) => {
           }
         }}
       >
-        <SentenceBlock>
-        <Input type="text" placeholder="Envoyer Un Message"
+        <Input
           ref={name => { input = name }}
         />
-        </SentenceBlock>
       </form>
     </div>
   );

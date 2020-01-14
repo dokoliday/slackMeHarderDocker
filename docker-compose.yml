@@ -37,6 +37,7 @@ services:
       - "4000:4000"
     environment:
       - API_HOST=api
+      - API_USER_HOST=apiUsers
     depends_on: 
       - api
  
@@ -49,4 +50,29 @@ services:
       - POSTGRES_DB=slackMeHarder
     ports:
       - "5432:5432"
+
+  apiUsers: 
+    image: node
+    container_name: "apiUsers"
+    command: bash -c "npm install && npm start"
+    working_dir: /apiUsers
+    volumes:
+      - ./apiUsers:/apiUsers
+    ports:
+      - "5201:5201"
+    environment:
+      - DB_HOST=mongodb
+      - DB_NAME=slackMeHarder
+      - DB_TEST_NAME=test
+    depends_on: 
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: alex
+        MONGO_INITDB_ROOT_PASSWORD: dokoliday
+    ports:
+        - "27017:27017"
     
