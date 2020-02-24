@@ -7,8 +7,8 @@ import Auth from './component/Auth';
 const App = () => (
   <ApolloProvider client={apolloClient}>
   <Switch>
-    <Route exact path='/authentication' component={Auth} />
-    <Route path='/home' component={Home} />
+    {/* <Route exact path='/authentication' component={Auth} /> */}
+    <Route path='/' component={Home} />
   </Switch>
   </ApolloProvider>
 );
