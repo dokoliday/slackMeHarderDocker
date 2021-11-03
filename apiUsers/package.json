@@ -34,7 +34,7 @@
     "pg-connection-string": "^2.1.0",
     "pg-promise": "^9.3.3",
     "socket.io": "^2.3.0",
-    "validator": "^12.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
